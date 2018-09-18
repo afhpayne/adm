@@ -1,2 +1,1 @@
-# adm
-Testing commit 2
+ADM is a script to use in place of a traditional display manager.  It shows the available window managers (or desktop environments) and allows the user to select one.  Then it launches.  This must be configures on a per-system basis.  Moreover, the user must create an apropriate xinitrc file based on the provided template.  The etc_profile is optional.
