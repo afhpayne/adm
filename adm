@@ -66,6 +66,7 @@ while user_num != 0 :
             winman = (wm_choose[x])
             user_uid  = os.getuid()
             group_gid = os.getgid()
+## COMMENT OUT LINES 70 and 71 TO DISABLE SAFETY BACKUP OF EXISTING .xinitrc FILE:
             if os.path.isfile(os.path.join(user_home, '.xinitrc')):
                 shutil.move(os.path.join(user_home, '.xinitrc'), os.path.join(user_home, '.xinitrc_LAST'))
             shutil.copy2(os.path.join(xinitrc_dir, winman), os.path.join(user_home, '.xinitrc'))
