@@ -1,0 +1,81 @@
+#! /usr/bin/env python3
+
+# Andrew Payne, info(*t)duckbrainsoftware(d*t)com
+
+# Software Data:
+soft_name = "ADM"
+soft_tag  = "a simple desktop manager"
+
+# Version
+soft_vers = "beta 0.20"
+
+import datetime
+import getpass
+import os
+import shutil
+import socket
+import subprocess
+
+# Lists  
+wm_sort   = []
+wm_print  = []
+wm_choose = []
+
+# Locations
+user_home   = os.environ['HOME']
+xinitrc_dir = os.path.join('/etc/X11/xinit')
+
+# Variables
+key = 1
+user_num = ''
+
+for wm in os.listdir(os.path.join("/etc/X11/xinit/")):
+    if os.path.isfile(os.path.join("/etc/X11/xinit/", wm)):
+        if wm.startswith('xinitrc') and len(wm) > 8:
+            wm_sort.append(wm)
+            wm_sort.sort()
+
+for wm in wm_sort:
+    wm_print.append("[")
+    wm_print.append(key)
+    wm_print.append("]")
+    wm_print.append(" ")
+    wm_print.append(wm.split('.')[1])
+    wm_print.append("\n")
+    key += 1
+    wm_choose.append(wm)
+
+os.system('clear')
+gus = shutil.get_terminal_size()
+a,b = gus
+for i in range(int(round(b/3))):
+    print("x".center(a))
+print("\nWelcome to " + soft_name + " version " + soft_vers + ", " + soft_tag + ".")
+d=datetime.datetime.now().strftime("%_I:%M%P on %a, %b %w %Y.")
+print("\nIt is", d)
+print("\nYou are logged in as", getpass.getuser(), "on", socket.gethostname() + ".")
+print("\nHere are the window managers found on your system...\n")
+print(''.join(map(str, wm_print)))
+while user_num != 0 :
+    user_num = input("(Q) to quit, or enter a number: ")
+    if user_num == 'Q' or user_num == 'q':
+        break
+    else:
+        try:
+            x = int(user_num) - 1
+            winman = (wm_choose[x])
+            user_uid  = os.getuid()
+            group_gid = os.getgid()
+            if os.path.isfile(os.path.join(user_home, '.xinitrc')):
+                shutil.move(os.path.join(user_home, '.xinitrc'), os.path.join(user_home, '.xinitrc_LAST'))
+            shutil.copy2(os.path.join(xinitrc_dir, winman), os.path.join(user_home, '.xinitrc'))
+            os.chown(os.path.join(user_home, '.xinitrc'), user_uid, group_gid)
+            user_num = 0
+            subprocess.run('startx')
+
+        except ValueError:
+            print(user_num + " is not an option")
+            user_num=1
+        except IndexError:
+            print(user_num + " is not an option")
+            user_num=1
