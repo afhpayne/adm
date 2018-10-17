@@ -7,7 +7,7 @@ soft_name = "ADM"
 soft_tag  = "a simple desktop manager"
 
 # Version
-soft_vers = "beta 0.40"
+soft_vers = "beta 0.41"
 
 import datetime
 import getpass
@@ -85,8 +85,6 @@ while user_num != 0 :
 ## COMMENT OUT LINES 86 AND 87 TO DISABLE SAFETY BACKUP COPY
             if os.path.isfile(os.path.join(user_home, '.xinitrc')):
                 shutil.move(os.path.join(user_home, '.xinitrc_LAST'))
-            else:
-                continue
             shutil.copy2(os.path.join(xinitrc_dir, winman), os.path.join(user_home, '.xinitrc'))
             os.chown(os.path.join(user_home, '.xinitrc'), user_uid, group_gid)
             user_num = 0
