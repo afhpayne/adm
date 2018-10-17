@@ -1,6 +1,6 @@
-ADM is a simple cli-only desktop manager.
+adm is a simple cli-only desktop manager.
 
-ADM will:
+adm will:
 
 * present a friendly command-line interface showing time and date, user and system
 * automatically display installed window managers or desktop environments
@@ -10,7 +10,7 @@ CONTENTS:
 
 [Dependencies](#dependencies)
 
-[Running ADM](#running)
+[Running adm](#running)
 
 [Notes](#notes)
 
@@ -26,9 +26,9 @@ Python 3.6 or newer
 <br><br>
 ## Running:
 
-1. Download ADM, make it executabe, and place it with user-executable files (e.g., /usr/local/bin/).  When you login on reboot, just type 'adm' in your terminal.
+1. Download adm, make it executable, and place it with user-executable files (e.g., /usr/local/bin/).  When you login on reboot, just type 'adm' in your terminal.
 
-2. To have ADM start automatically when a user logs in, simply append
+2. To have adm start automatically when a user logs in, simply append
     ```
     adm
     ```
@@ -37,18 +37,18 @@ Python 3.6 or newer
 <br><br>
 ## Notes:
 
-ADM uses xinit, and it looks for xinitrc files in /etc/X11/xinit/  
+adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/  
 * these should be called xinitrc.name_of_wm
 * there's a template in that folder to build from - most window managers startup by adding the final line:
     ```
     exec name_of_wm
     ```
 * this method also means you can also have different startup configurations for different window managers
-* ADM will replace the .xinitrc file in your home directory!  To be safe, it will back up the one there as
+* adm will replace the .xinitrc file in your home directory!  To be safe, it will back up the one there as
     ```
     .xinitrc_LAST
     ```
-  You can disable this behavior by commenting out lines 23-26.
+  You can disable this behavior by commenting out lines 70 and 71.
 
 
 <br><br>
