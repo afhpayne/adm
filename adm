@@ -7,7 +7,7 @@ soft_name = "ADM"
 soft_tag  = "a simple desktop manager"
 
 # Version
-soft_vers = "beta 0.41"
+soft_vers = "beta 0.42"
 
 import datetime
 import getpass
@@ -40,7 +40,7 @@ for wm in os.listdir(os.path.join("/etc/X11/xinit/")):
             wm_sort.sort()
 
 for wm in wm_sort:
-    wm_print.append("\t\t")
+    wm_print.append("\t\t\t")
     wm_print.append("[")
     wm_print.append(key)
     wm_print.append("]")
@@ -55,24 +55,24 @@ getsize = shutil.get_terminal_size()
 col,line = getsize
 for i in range(int(round(line/8))):
     print(" ".center(col))
-print("\t\t-----------------------------------------------------------")
+print("\t\t\t-----------------------------------------------------------")
 welstr = ("Welcome to " + O+ soft_name +W + " version " + soft_vers + ", " + soft_tag + ".")
-print("\t\t" + welstr)
+print("\t\t\t" + welstr)
 print("\n")
 date = datetime.datetime.now().strftime("%_I:%M%P on %a, %b %w %Y.")
 datestr = ("It is " + date)
-print("\t\t" + datestr)
+print("\t\t\t" + datestr)
 youstr = ("You are logged in as " + getpass.getuser() + " on " + socket.gethostname() + ".")
 print("\n")
-print("\t\t" + youstr)
-print("\t\t-----------------------------------------------------------")
+print("\t\t\t" + youstr)
+print("\t\t\t-----------------------------------------------------------")
 herestr = ("Here are the window managers found on your system...")
 print("\n")
-print("\t\t" + herestr)
+print("\t\t\t" + herestr)
 print("\n")
 print(''.join(map(str, wm_print)))
 while user_num != 0 :
-    user_num = input("\t\t(Q) to quit, or enter a number: ")
+    user_num = input("\t\t\t(Q) to quit, or enter a number: ")
     if user_num == 'Q' or user_num == 'q':
         os.system('clear')
         break
@@ -84,7 +84,7 @@ while user_num != 0 :
             group_gid = os.getgid()
 ## COMMENT OUT LINES 86 AND 87 TO DISABLE SAFETY BACKUP COPY
             if os.path.isfile(os.path.join(user_home, '.xinitrc')):
-                shutil.move(os.path.join(user_home, '.xinitrc_LAST'))
+                shutil.move(os.path.join(user_home, '.xinitrc'), os.path.join(user_home, '.xinitrc_LAST'))
             shutil.copy2(os.path.join(xinitrc_dir, winman), os.path.join(user_home, '.xinitrc'))
             os.chown(os.path.join(user_home, '.xinitrc'), user_uid, group_gid)
             user_num = 0
