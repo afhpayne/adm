@@ -48,7 +48,7 @@ adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/
     ```
     .xinitrc_LAST
     ```
-  You can disable this behavior by commenting out lines 70 and 71.
+  You can disable this behavior by commenting out lines 86 and 87.
 
 
 <br><br>
