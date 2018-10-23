@@ -7,7 +7,7 @@ soft_name = "ADM"
 soft_tag  = "a simple desktop manager"
 
 # Version
-soft_vers = "beta 0.43"
+soft_vers = "beta 0.44"
 
 import datetime
 import getpass
@@ -90,6 +90,7 @@ while user_num != 0 :
             os.chown(os.path.join(user_home, '.xinitrc'), user_uid, group_gid)
             user_num = 0
             subprocess.run('startx')
+            exit()
 
         except ValueError:
             print(user_num + " is not an option")
