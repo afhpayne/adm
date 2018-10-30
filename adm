@@ -7,7 +7,7 @@ soft_name = "ADM"
 soft_tag  = "a simple desktop manager"
 
 # Version
-soft_vers = "beta 0.44"
+soft_vers = "1.0.0"
 
 import datetime
 import getpass
@@ -82,7 +82,7 @@ while user_num != 0 :
             winman = (wm_choose[x])
             user_uid  = os.getuid()
             group_gid = os.getgid()
-## COMMENT OUT LINES 86 AND 87 TO DISABLE SAFETY BACKUP COPY
+## COMMENT OUT LINES 86, 87 and 88 TO DISABLE SAFETY BACKUP OF CURRENT XINITRC
             if os.path.isfile(os.path.join(user_home, '.xinitrc')):
                 shutil.move(os.path.join(user_home, '.xinitrc'), os.path.join(user_home, '.xinitrc_LAST'))
                 os.chmod(os.path.join(user_home, '.xinitrc_LAST'), 0o666)
