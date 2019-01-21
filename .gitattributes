@@ -1,9 +1,11 @@
 # Exclusion criteria for deployment
 *.png export-ignore
+*README export-ignore
 *README.txt export-ignore
 *readme.md export-ignore
 *README.md export-ignore
 *README export-ignore
+*LICENSE export-ignore
 *LICENSE.md export-ignore
 *LICENSE.txt export-ignore
 *license.txt export-ignore
