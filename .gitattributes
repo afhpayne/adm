@@ -1,6 +1,7 @@
 # Exclusion criteria for deployment
 
-# Git files
+# Git files 
+*.gitattributes export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
 
@@ -16,6 +17,7 @@
 
 # Licenses
 *LICENSE export-ignore
+LICENSE.md export-ignore
 *LICENSE.md export-ignore
 *LICENSE.txt export-ignore
 *license.txt export-ignore
