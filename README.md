@@ -14,6 +14,8 @@ CONTENTS:
 
 [Notes](#notes)
 
+[Screenshot](#screenshot)
+
 [Beginners Help](#beginners-help)
 
 
@@ -50,6 +52,9 @@ adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/
     ```
   You can disable this behavior by commenting out lines 86 and 87.
 
+<br><br>
+## Screenshot  
+![screenshot](https://github.com/afhpayne/adm/blob/master/adm.png "adm screenshot")
 
 <br><br>
 ## Beginners' Help  
