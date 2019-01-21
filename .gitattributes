@@ -1,10 +1,20 @@
 # Exclusion criteria for deployment
+
+# Git files
+.gitattributes export-ignore
+.gitignore export-ignore
+
+# Image files
 *.png export-ignore
+
+# Readme
 *README export-ignore
 *README.txt export-ignore
 *readme.md export-ignore
 *README.md export-ignore
 *README export-ignore
+
+# Licenses
 *LICENSE export-ignore
 *LICENSE.md export-ignore
 *LICENSE.txt export-ignore
