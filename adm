@@ -24,11 +24,13 @@ soft_name = "ADM"
 soft_tag  = "a simple desktop manager"
 
 # Version
-soft_vers = "1.0.1"
+soft_vers = "1.0.2"
 
 import datetime
 import getpass
 import os
+import platform
+import readline
 import shutil
 import socket
 import subprocess
@@ -72,17 +74,20 @@ getsize = shutil.get_terminal_size()
 col,line = getsize
 for i in range(int(round(line/8))):
     print(" ".center(col))
-print("\t\t\t-----------------------------------------------------------")
+print("\t\t\t------------------------------------------------------------------")
 welstr = ("Welcome to " + O+ soft_name +W + " version " + soft_vers + ", " + soft_tag + ".")
 print("\t\t\t" + welstr)
 print("\n")
 date = datetime.datetime.now().strftime("%_I:%M%P on %a, %b %w %Y.")
-datestr = ("It is " + date)
+datestr = ("It is" + date)
 print("\t\t\t" + datestr)
 youstr = ("You are logged in as " + getpass.getuser() + " on " + socket.gethostname() + ".")
 print("\n")
 print("\t\t\t" + youstr)
-print("\t\t\t-----------------------------------------------------------")
+sysstr = ("Running " + platform.system() + " " + platform.release() + ", " + platform.processor())
+print("\n")
+print("\t\t\t" + sysstr)
+print("\t\t\t------------------------------------------------------------------")
 herestr = ("Here are the window managers found on your system...")
 print("\n")
 print("\t\t\t" + herestr)
@@ -99,7 +104,7 @@ while user_num != 0 :
             winman = (wm_choose[x])
             user_uid  = os.getuid()
             group_gid = os.getgid()
-## COMMENT OUT LINES 86, 87 and 88 TO DISABLE SAFETY BACKUP OF CURRENT XINITRC
+## COMMENT OUT LINES 108, 109 and 110 TO DISABLE SAFETY BACKUP OF CURRENT XINITRC
             if os.path.isfile(os.path.join(user_home, '.xinitrc')):
                 shutil.move(os.path.join(user_home, '.xinitrc'), os.path.join(user_home, '.xinitrc_LAST'))
                 os.chmod(os.path.join(user_home, '.xinitrc_LAST'), 0o666)
@@ -107,11 +112,12 @@ while user_num != 0 :
             os.chown(os.path.join(user_home, '.xinitrc'), user_uid, group_gid)
             user_num = 0
             subprocess.run('startx')
-            exit()
+            exit(0)
 
         except ValueError:
-            print(user_num + " is not an option")
+            print("\t\t\t\t\t\t\t" + user_num + " is not an option")
             user_num=1
         except IndexError:
-            print(user_num + " is not an option")
+            print("\t\t\t\t\t\t\t" + user_num + " is not an option")
             user_num=1
+exit(0)
