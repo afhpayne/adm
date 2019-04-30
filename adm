@@ -24,7 +24,7 @@ soft_name = "ADM"
 soft_tag  = "a simple desktop manager"
 
 # Version
-soft_vers = "1.0.2"
+soft_vers = "1.1.0"
 
 import datetime
 import getpass
