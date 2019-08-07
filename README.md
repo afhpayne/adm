@@ -1,4 +1,4 @@
-adm is a simple cli-only desktop manager.
+adm is a simple cli-only display manager.
 
 adm will:
 
