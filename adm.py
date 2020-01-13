@@ -2,7 +2,7 @@
 
 # Andrew Payne, info(*t)duckbrainsoftware(d*t)com
 # MIT License
-# Copyright (c) 2018 Andrew Payne
+# Copyright (c) 2018-2020 Andrew Payne
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -24,7 +24,7 @@ soft_name = "ADM"
 soft_tag  = "a simple display manager"
 
 # Version
-soft_vers = "1.1.1"
+soft_vers = "1.1.2"
 
 import datetime
 import getpass
@@ -78,8 +78,8 @@ print("\t\t\t------------------------------------------------------------------"
 welstr = ("Welcome to " + O+ soft_name +W + " version " + soft_vers + ", " + soft_tag + ".")
 print("\t\t\t" + welstr)
 print("\n")
-date = datetime.datetime.now().strftime("%_I:%M %p on %A, %b%e %Y.")
-datestr = ("It is" + date)
+date = datetime.datetime.now().strftime("%_I:%M %p on %A, %b %e %Y.")
+datestr = ("It is " + date)
 print("\t\t\t" + datestr)
 youstr = ("You are logged in as " + getpass.getuser() + " on " + socket.gethostname() + ".")
 print("\n")
