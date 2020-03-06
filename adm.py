@@ -24,7 +24,7 @@ soft_name = "ADM"
 soft_tag  = "a simple display manager"
 
 # Version
-soft_vers = "1.1.3"
+soft_vers = "1.1.5"
 
 import datetime
 import getpass
@@ -78,12 +78,12 @@ print("\t\t\t------------------------------------------------------------------"
 welstr = ("Welcome to " + O+ soft_name +W + " version " + soft_vers + ", " + soft_tag + ".")
 print("\t\t\t" + welstr)
 print("\n")
-date = datetime.datetime.now().strftime("%_I:%M %p on %A, %b %e %Y.")
-datestr = ("It is" + date)
-print("\t\t\t" + str(datestr))
+date = datetime.datetime.now().strftime("%I:%M %p on %A, %b%e %Y.")
+datestr = ("It is " + date)
+print("\t\t\t" + datestr)
 youstr = ("You are logged in as " + getpass.getuser() + " on " + socket.gethostname() + ".")
 print("\n")
-print("\t\t\t" + str(youstr))
+print("\t\t\t" + youstr)
 sysstr = ("Running " + platform.system() + " " + platform.release() + ", " + platform.processor())
 print("\n")
 print("\t\t\t" + sysstr)
@@ -97,7 +97,7 @@ while user_num != 0 :
     user_num = input("\t\t\t(Q) to quit, or enter a number: ")
     if user_num == 'Q' or user_num == 'q':
         os.system('clear')
-        break
+        exit(0)
     else:
         try:
             x = int(user_num) - 1
