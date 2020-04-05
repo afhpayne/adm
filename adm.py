@@ -41,7 +41,7 @@ import time
 W = '\033[0m'  # white
 O = '\033[33m' # orange
 
-# Lists  
+# Lists
 wm_sort = []
 wm_print = []
 wm_choose = []
@@ -79,7 +79,7 @@ head_factor = (round(line * .0625))
 left_factor = (round(column * .0625))
 header = ("\n" * head_factor)
 margin = (" " * left_factor)
-divider = ("-" * 66) 
+divider = ("-" * 66)
 
 welstr  = ("Welcome to " + O+ soft_name +W + " version " + soft_vers + ", " + soft_tag + ".")
 
@@ -129,7 +129,7 @@ while user_num == 0 :
             winman = (wm_sort[x])
             user_uid  = os.getuid()
             group_gid = os.getgid()
-            ## COMMENT OUT LINES 120, 121 and 122 TO DISABLE SAFETY BACKUP OF CURRENT XINITRC
+            ## COMMENT OUT LINES 133, 134 and 135 TO DISABLE SAFETY BACKUP OF CURRENT XINITRC
             if os.path.isfile(os.path.join(user_home, '.xinitrc')):
                 shutil.move(os.path.join(user_home, '.xinitrc'), os.path.join(user_home, '.xinitrc_LAST'))
                 os.chmod(os.path.join(user_home, '.xinitrc_LAST'), 0o666)
