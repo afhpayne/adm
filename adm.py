@@ -24,7 +24,7 @@ soft_name = "ADM"
 soft_tag  = "a simple display manager"
 
 # Version
-soft_vers = "1.1.6"
+soft_vers = "1.1.7"
 
 import datetime
 import getpass
@@ -35,100 +35,117 @@ import readline
 import shutil
 import socket
 import subprocess
-
+import time
 
 # Colors
 W = '\033[0m'  # white
 O = '\033[33m' # orange
 
 # Lists  
-wm_sort   = []
-wm_print  = []
+wm_sort = []
+wm_print = []
 wm_choose = []
+xinitrc_dir = []
 
 # Home location
 user_home   = os.environ['HOME']
+
 # xinitrc location
 check_platform =  platform.system()
-if "slackware" in check_platform.lower():
-    xinitrc_dir = os.path.join('/etc/X11/xinit')
-if "freebsd" in check_platform.lower():
-    xinitrc_dir = os.path.join('/usr/local/etc/X11/xinit')
+if "linux" in check_platform.lower():
+    xinitrc_dir.append('/etc/X11/xinit')
+elif "freebsd" in check_platform.lower():
+    xinitrc_dir.append('/usr/local/etc/X11/xinit')
+else:
+    print(check_platform, "is not supported in this release.  Exiting.")
+    exit(1)
 
-# Variables
-key = 1
-user_num = ''
-
-for wm in os.listdir(xinitrc_dir):
-    if os.path.isdir(os.path.join(xinitrc_dir + "/" + wm)) is False:
-        if wm.startswith('xinitrc') and len(wm) > 8:
+for wm in os.listdir(os.path.join(xinitrc_dir[0])):
+    if os.path.isdir(os.path.join(xinitrc_dir[0] + "/" + wm)) is False:
+        if wm.startswith("xinitrc") and len(wm) > 8:
+            wm = wm.replace("xinitrc.", "")
             wm_sort.append(wm)
             wm_sort.sort()
+wm_print = {}
+key = 1
+for wm in wm_sort:
+    wm_print.update({key:wm})
+    key += 1
 
-os.system('clear')
+# get terminal window size to set layout
 getsize = shutil.get_terminal_size()
 column,line = getsize
-if column > 100:
-    for i in range(int(round(line/8))):
-        print(" ".center(line))
-    indent = ("\t\t\t")
-else:
-    indent = ("")
+head_factor = (round(line * .0625))
+left_factor = (round(column * .0625))
+header = ("\n" * head_factor)
+margin = (" " * left_factor)
+divider = ("-" * 66) 
 
-for wm in wm_sort:
-    wm_print.append(indent + "\t")
-    wm_print.append("[")
-    wm_print.append(key)
-    wm_print.append("]")
-    wm_print.append(" ")
-    wm_print.append(wm.split('.')[1])
-    wm_print.append("\n")
-    key += 1
-    wm_choose.append(wm)
-    
-print(indent + "------------------------------------------------------------------")
-welstr = ("Welcome to " + O+ soft_name +W + " version " + soft_vers + ", " + soft_tag + ".")
-print(indent + welstr)
-print("\n")
-date = datetime.datetime.now().strftime("%I:%M %p on %A, %b%e %Y.")
+welstr  = ("Welcome to " + O+ soft_name +W + " version " + soft_vers + ", " + soft_tag + ".")
+
+date    = datetime.datetime.now().strftime("%I:%M %p on %A, %b%e %Y.")
 datestr = ("It is " + date)
-print(indent + datestr)
-youstr = ("You are logged in as " + getpass.getuser() + " on " + socket.gethostname() + ".")
-print("\n")
-print(indent + youstr)
-sysstr = ("Running " + platform.system() + " " + platform.release() + ", " + platform.processor())
-print("\n")
-print(indent + sysstr)
-print(indent + "------------------------------------------------------------------")
+
+username = getpass.getuser()
+hostname = socket.gethostname()
+youstr   = ("You are logged in as " + username + " on " + hostname + ".")
+
+system  = platform.system()
+release = platform.release()
+cpu     = platform.processor()
+sysstr  = ("Running " + system + " " + release + " " + cpu)
+
 herestr = ("Here are the window managers found on your system...")
+
+os.system('clear')
+
+print(header)
+print(margin + divider)
+print(margin + welstr)
 print("\n")
-print(indent + herestr)
+print(margin + datestr)
 print("\n")
-print(''.join(map(str, wm_print)))
-while user_num != 0 :
-    user_num = input(indent + "(Q) to quit, or enter a number: ")
+print(margin + youstr)
+print("\n")
+print(margin + sysstr)
+print(margin + divider)
+print("")
+print(margin + herestr)
+print("")
+for key,value in wm_print.items():
+    print(margin + " " * 4 + "[" + str(key) + "] " + str(value))
+print("")
+
+user_num = 0
+while user_num == 0 :
+    user_num = input(margin + " "*4 + "(Q) to quit, or enter a number: ")
     if user_num == 'Q' or user_num == 'q':
+        user_num = 1
         os.system('clear')
         exit(0)
     else:
         try:
             x = int(user_num) - 1
-            winman = (wm_choose[x])
+            winman = (wm_sort[x])
             user_uid  = os.getuid()
             group_gid = os.getgid()
-## COMMENT OUT LINES 120, 121 and 122 TO DISABLE SAFETY BACKUP OF CURRENT XINITRC
+            ## COMMENT OUT LINES 120, 121 and 122 TO DISABLE SAFETY BACKUP OF CURRENT XINITRC
             if os.path.isfile(os.path.join(user_home, '.xinitrc')):
                 shutil.move(os.path.join(user_home, '.xinitrc'), os.path.join(user_home, '.xinitrc_LAST'))
                 os.chmod(os.path.join(user_home, '.xinitrc_LAST'), 0o666)
-            shutil.copy2(os.path.join(xinitrc_dir, winman), os.path.join(user_home, '.xinitrc'))
+            shutil.copy2((os.path.join(xinitrc_dir[0] + "/" + "xinitrc." +winman)), os.path.join(user_home, '.xinitrc'))
             os.chown(os.path.join(user_home, '.xinitrc'), user_uid, group_gid)
-            user_num = 0
-            subprocess.run('startx')
+            print("")
+            print((margin + " "*4), end=" ")
+            print("-->", end=" ")
+            time.sleep(.1)
+            print("Starting " + winman)
+            time.sleep(.4)
+            user_num = 1
+#             subprocess.run('startx')
             exit(0)
         except ValueError:
-            print(indent + indent + "\t" + user_num + " is not an option")
-            user_num=1
+            print(margin + " " *4 + "\t" + user_num + " is not an option")
         except IndexError:
-            print(indent + indent + "\t" + user_num + " is not an option")
-            user_num=1
+            print(margin + " " *4 + "\t" + user_num + " is not an option")
 exit(0)
