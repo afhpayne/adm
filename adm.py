@@ -142,7 +142,7 @@ while user_num == 0 :
             print("Starting " + winman)
             time.sleep(.4)
             user_num = 1
-#             subprocess.run('startx')
+            subprocess.run('startx')
             exit(0)
         except ValueError:
             print(margin + " " *4 + "\t" + user_num + " is not an option")
