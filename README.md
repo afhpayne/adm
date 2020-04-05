@@ -4,7 +4,7 @@ adm will:
 
 * present a friendly command-line interface showing time and date, user and system
 * automatically display installed window managers or desktop environments
-* launch it with a single keyboard press
+* launch one with a single keyboard press
 
 CONTENTS:
 
@@ -14,6 +14,8 @@ CONTENTS:
 
 [Notes](#notes)
 
+[Release Notes](#release-notes)
+
 [Screenshot](#screenshot)
 
 [Beginners Help](#beginners-help)
@@ -22,25 +24,25 @@ CONTENTS:
 <br><br>
 ## Dependencies:
 
-Python 3.6 or newer
+Python 3.3 or newer
 
 
 <br><br>
 ## Running:
 
-1. Download adm, make it executable, and place it with user-executable files (e.g., /usr/local/bin/).  When you login on reboot, just type 'adm' in your terminal.
+1. Download adm.py, make it executable, and place it with user-executable files (e.g., /usr/local/bin/).  When you login on reboot, just type 'adm.py' in your terminal.
 
 2. To have adm start automatically when a user logs in, simply append
     ```
-    adm
+    adm.py
     ```
-    to the bottom of your .bash_profile
+    to your .bash_profile
 
 <br><br>
 ## Notes:
 
-adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/  
-* these should be called xinitrc.name_of_wm
+adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/ in Linux or /usr/local/etc/X11/xinit in FreeBSD  
+* these files should be called xinitrc.name_of_wm
 * there's a template in that folder to build from - most window managers startup by adding the final line:
     ```
     exec name_of_wm
@@ -50,7 +52,12 @@ adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/
     ```
     .xinitrc_LAST
     ```
-  You can disable this behavior by commenting out lines 86 and 87.
+  You can disable this behavior by commenting out lines in the code that have been marked.
+
+<br><br>
+## Release notes
+1.1.7 Major code overhaul; now responsive to any monitor resolution; more efficient identification of xinitrc files, stability improvements
+1.1.6 Added FreeBSD support, bug fixes
 
 <br><br>
 ## Screenshot  
