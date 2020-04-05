@@ -56,7 +56,7 @@ adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/ in Linux or /u
 
 <br><br>
 ## Release notes
-1.1.7 Major code overhaul; now responsive to any monitor resolution; more efficient identification of xinitrc files, stability improvements
+1.1.7 Major code overhaul; now responsive to any monitor resolution; more efficient identification of xinitrc files, stability improvements<br>
 1.1.6 Added FreeBSD support, bug fixes
 
 <br><br>
