@@ -83,8 +83,8 @@ divider = ("-" * 66)
 
 welstr  = ("Welcome to " + O+ soft_name +W + " version " + soft_vers + ", " + soft_tag + ".")
 
-date    = datetime.datetime.now().strftime("%_I:%M %p on %A, %B %_d %Y.")
-datestr = ("It is" + date)
+date    = datetime.datetime.now().strftime("%I:%M %p on %A, %B %_d %Y.")
+datestr = ("It is " + date)
 
 username = getpass.getuser()
 hostname = socket.gethostname()
