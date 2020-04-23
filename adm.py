@@ -24,7 +24,7 @@ soft_name = "ADM"
 soft_tag  = "a simple display manager"
 
 # Version
-soft_vers = "1.1.7"
+soft_vers = "1.1.8"
 
 import datetime
 import getpass
@@ -83,8 +83,8 @@ divider = ("-" * 66)
 
 welstr  = ("Welcome to " + O+ soft_name +W + " version " + soft_vers + ", " + soft_tag + ".")
 
-date    = datetime.datetime.now().strftime("%I:%M %p on %A, %b%e %Y.")
-datestr = ("It is " + date)
+date    = datetime.datetime.now().strftime("%_I:%M %p on %A, %B %_d %Y.")
+datestr = ("It is" + date)
 
 username = getpass.getuser()
 hostname = socket.gethostname()
