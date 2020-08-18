@@ -117,7 +117,7 @@ for key,value in wm_print.items():
 print("")
 
 user_num = 0
-while user_num == 0 :
+while user_num == 0:
     user_num = input(margin + " "*4 + "(Q) to quit, or enter a number: ")
     if user_num == 'Q' or user_num == 'q':
         user_num = 1
