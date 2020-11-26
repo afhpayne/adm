@@ -24,7 +24,7 @@ soft_name = "ADM"
 soft_tag  = "a simple display manager"
 
 # Version
-soft_vers = "1.1.8"
+soft_vers = "1.1.9"
 
 import datetime
 import getpass
@@ -48,17 +48,28 @@ wm_choose = []
 xinitrc_dir = []
 
 # Home location
-user_home   = os.environ['HOME']
+user_home = os.environ['HOME']
+
+# Normal linux setups (tested)
+linuxes = ["slackware", "arch", "void", "ubuntu", "debian", "centos"]
 
 # xinitrc location
-check_platform =  platform.system()
-if "linux" in check_platform.lower():
-    xinitrc_dir.append('/etc/X11/xinit')
-elif "freebsd" in check_platform.lower():
-    xinitrc_dir.append('/usr/local/etc/X11/xinit')
-else:
-    print(check_platform, "is not supported in this release.  Exiting.")
-    exit(1)
+check_platform = platform.version()
+hostname = socket.gethostname()
+for linux in linuxes:
+    if linux in check_platform.lower():
+        xinitrc_dir.append('/etc/X11/xinit')
+
+    elif "nixos" in check_platform.lower():
+        xinitrc_dir.append(os.path.join(
+            user_home + '/Gitlab/nix_settings/' + hostname))
+    
+    elif "freebsd" in check_platform.lower():
+        xinitrc_dir.append('/usr/local/etc/X11/xinit')
+    
+    else:
+        print(check_platform, "is not supported in this release.  Exiting.")
+        exit(1)
 
 for wm in os.listdir(os.path.join(xinitrc_dir[0])):
     if os.path.isdir(os.path.join(xinitrc_dir[0] + "/" + wm)) is False:
@@ -66,6 +77,7 @@ for wm in os.listdir(os.path.join(xinitrc_dir[0])):
             wm = wm.replace("xinitrc.", "")
             wm_sort.append(wm)
             wm_sort.sort()
+
 wm_print = {}
 key = 1
 for wm in wm_sort:
@@ -129,7 +141,7 @@ while user_num == 0:
             winman = (wm_sort[x])
             user_uid  = os.getuid()
             group_gid = os.getgid()
-            ## COMMENT OUT LINES 133, 134 and 135 TO DISABLE SAFETY BACKUP OF CURRENT XINITRC
+            ## COMMENT OUT NEXT 3 LINES TO DISABLE SAFETY BACKUP OF CURRENT XINITRC
             if os.path.isfile(os.path.join(user_home, '.xinitrc')):
                 shutil.move(os.path.join(user_home, '.xinitrc'), os.path.join(user_home, '.xinitrc_LAST'))
                 os.chmod(os.path.join(user_home, '.xinitrc_LAST'), 0o666)
