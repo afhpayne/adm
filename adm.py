@@ -145,7 +145,7 @@ while user_num == 0:
             if os.path.isfile(os.path.join(user_home, '.xinitrc')):
                 shutil.move(os.path.join(user_home, '.xinitrc'), os.path.join(user_home, '.xinitrc_LAST'))
                 os.chmod(os.path.join(user_home, '.xinitrc_LAST'), 0o666)
-            shutil.copy2((os.path.join(xinitrc_dir[0] + "/" + "xinitrc." +winman)), os.path.join(user_home, '.xinitrc'))
+            shutil.copy2((os.path.join(xinitrc_dir[0] + "/" + "xinitrc." + winman)), os.path.join(user_home, '.xinitrc'))
             os.chown(os.path.join(user_home, '.xinitrc'), user_uid, group_gid)
             print("")
             print((margin + " "*4), end=" ")
