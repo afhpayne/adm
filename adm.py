@@ -24,7 +24,7 @@ soft_name = "ADM"
 soft_tag  = "a simple display manager"
 
 # Version
-soft_vers = "1.1.9"
+soft_vers = "1.2.0"
 
 import datetime
 import getpass
@@ -56,18 +56,24 @@ linuxes = ["slackware", "arch", "void", "ubuntu", "debian", "centos"]
 # xinitrc location
 check_platform = platform.version()
 hostname = socket.gethostname()
+output = (str(subprocess.check_output('cat /etc/os-release', shell=True)))
+tripwire = 0
 for linux in linuxes:
-    if linux in check_platform.lower():
+    if linux in output:
         xinitrc_dir.append('/etc/X11/xinit')
+        tripwire = 1
 
     elif "nixos" in check_platform.lower():
         xinitrc_dir.append(os.path.join(
             user_home + '/Gitlab/nix_settings/' + hostname))
+        tripwire = 1
+
     
     elif "freebsd" in check_platform.lower():
         xinitrc_dir.append('/usr/local/etc/X11/xinit')
+        tripwire = 1
     
-    else:
+    elif tripwire == 0:
         print(check_platform, "is not supported in this release.  Exiting.")
         exit(1)
 
