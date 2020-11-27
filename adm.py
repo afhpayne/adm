@@ -68,11 +68,10 @@ for linux in linuxes:
             user_home + '/Gitlab/nix_settings/' + hostname))
         tripwire = 1
 
-    
     elif "freebsd" in check_platform.lower():
         xinitrc_dir.append('/usr/local/etc/X11/xinit')
         tripwire = 1
-    
+
     elif tripwire == 0:
         print(check_platform, "is not supported in this release.  Exiting.")
         exit(1)
