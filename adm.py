@@ -24,7 +24,7 @@ soft_name = "ADM"
 soft_tag  = "a simple display manager"
 
 # Version
-soft_vers = "1.2.0"
+soft_vers = "1.2.1"
 
 import datetime
 import getpass
@@ -54,12 +54,15 @@ user_home = os.environ['HOME']
 linuxes = ["slackware", "arch", "void", "ubuntu", "debian", "centos"]
 
 # xinitrc location
+os_release = []
+if os.path.isfile("/etc/os-release"):
+    os_release.append(str(subprocess.check_output('cat /etc/os-release', shell=True)))
+
 check_platform = platform.version()
 hostname = socket.gethostname()
-output = (str(subprocess.check_output('cat /etc/os-release', shell=True)))
 tripwire = 0
-for linux in linuxes:
-    if linux in output:
+for linux in linuxes:    
+    if linux in os_release:
         xinitrc_dir.append('/etc/X11/xinit')
         tripwire = 1
 
