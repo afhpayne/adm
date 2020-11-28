@@ -24,7 +24,7 @@ CONTENTS:
 <br><br>
 ## Dependencies:
 
-Python 3.3 or newer
+Python3
 
 
 <br><br>
@@ -41,7 +41,7 @@ Python 3.3 or newer
 <br><br>
 ## Notes:
 
-adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/ in Linux or /usr/local/etc/X11/xinit in FreeBSD  
+adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/ in Linux or /usr/local/etc/X11/xinit in FreeBSD
 * these files should be called xinitrc.name_of_wm
 * there's a template in that folder to build from - most window managers startup by adding the final line:
     ```
@@ -54,8 +54,11 @@ adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/ in Linux or /u
     ```
   You can disable this behavior by commenting out lines in the code that have been marked.
 
+* NixOS support means adm will search in a user location for xinitrc files. I keep mine in a git directory for example. This location is currently hard-coded.
+
 <br><br>
 ## Release notes
+1.2.0 Bug fix, 'distro' deprecated, now adm reads os-release <br>
 1.1.9 Add support for NixOS using startx <br>
 1.1.8 Layout fix <br>
 1.1.7 Major code overhaul; now responsive to any monitor resolution; more efficient identification of xinitrc files, stability improvements<br>
@@ -75,7 +78,7 @@ If you're new to non-graphical Python programs, using them is still easy.
   python3 program_name
   ```
   I use python3 in the example to be certain, but a thoughtfully formatted program should be ok with just 'python' - sometimes a fatal syntax error is a clue your program is calling the wrong version of Python.
-  
+
 * You can make life easier by making the program executable:
   ```
   chmod +x program_name
@@ -102,4 +105,4 @@ If you're new to non-graphical Python programs, using them is still easy.
   ```
   reboot
   ```
-  Of course _username_ is your user's name.  And of course you're not running your system as root...
+  Replace _username_ with your own and you're off...
