@@ -58,7 +58,8 @@ adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/ in Linux or /u
 
 <br><br>
 ## Release notes
-1.2.0 Bug fix, 'distro' deprecated, now adm reads os-release <br>
+1.2.1 Bug fix check os-release  <br>
+1.2.0 Bug fix 'distro' deprecated, now adm reads os-release <br>
 1.1.9 Add support for NixOS using startx <br>
 1.1.8 Layout fix <br>
 1.1.7 Major code overhaul; now responsive to any monitor resolution; more efficient identification of xinitrc files, stability improvements<br>
