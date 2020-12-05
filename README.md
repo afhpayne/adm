@@ -41,7 +41,7 @@ Python3
 <br><br>
 ## Notes:
 
-adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/ in Linux or /usr/local/etc/X11/xinit in FreeBSD
+adm uses startx and it looks for xinitrc files in /etc/X11/xinit/ in Linux or /usr/local/etc/X11/xinit in FreeBSD
 * these files should be called xinitrc.name_of_wm
 * there's a template in that folder to build from - most window managers startup by adding the final line:
     ```
@@ -57,7 +57,8 @@ adm uses xinit, and it looks for xinitrc files in /etc/X11/xinit/ in Linux or /u
 * NixOS support means adm will search in a user location for xinitrc files. I keep mine in a git directory for example. This location is currently hard-coded.
 
 <br><br>
-## Release notes
+## Release notes:
+1.2.2 Bug fix, failed to parse list of Linux options <br>
 1.2.1 Bug fix check os-release  <br>
 1.2.0 Bug fix 'distro' deprecated, now adm reads os-release <br>
 1.1.9 Add support for NixOS using startx <br>
