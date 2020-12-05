@@ -24,7 +24,7 @@ soft_name = "ADM"
 soft_tag  = "a simple display manager"
 
 # Version
-soft_vers = "1.2.1"
+soft_vers = "1.2.2"
 
 import datetime
 import getpass
@@ -46,51 +46,74 @@ wm_sort = []
 wm_print = []
 wm_choose = []
 xinitrc_dir = []
+os_release = []
+
+# Dictionaries
+wm_print = {}
 
 # Home location
 user_home = os.environ['HOME']
 
 # Normal linux setups (tested)
-linuxes = ["slackware", "arch", "void", "ubuntu", "debian", "centos"]
+linuxes = ["slackware", "arch", "void", "debian"]
 
-# xinitrc location
-os_release = []
-if os.path.isfile("/etc/os-release"):
-    os_release.append(str(subprocess.check_output('cat /etc/os-release', shell=True)))
 
-check_platform = platform.version()
-hostname = socket.gethostname()
-tripwire = 0
-for linux in linuxes:    
-    if linux in os_release:
-        xinitrc_dir.append('/etc/X11/xinit')
-        tripwire = 1
+def read_os_release_func():
+    osrelease_src = os.path.join("/etc/os-release")
+    try:
+        with open(osrelease_src) as osrelease:
+            osrelease_lines = osrelease.readlines()
+            os_release.append(osrelease_lines)
+    except(FileNotFoundError):
+        pass
 
+
+def os_specific_xinit_loc_func():
+    check_platform = platform.version()
+    hostname = socket.gethostname()
+    tripwire = 0
+    if len(os_release) > 0:
+        for linux in linuxes:
+            if linux in (str(os_release).lower()):
+                print
+                xinitrc_dir.append('/etc/X11/xinit')
+                tripwire = 1
+    
     elif "nixos" in check_platform.lower():
         xinitrc_dir.append(os.path.join(
             user_home + '/Gitlab/nix_settings/' + hostname))
         tripwire = 1
-
+    
     elif "freebsd" in check_platform.lower():
         xinitrc_dir.append('/usr/local/etc/X11/xinit')
         tripwire = 1
-
+    
     elif tripwire == 0:
         print(check_platform, "is not supported in this release.  Exiting.")
         exit(1)
 
-for wm in os.listdir(os.path.join(xinitrc_dir[0])):
-    if os.path.isdir(os.path.join(xinitrc_dir[0] + "/" + wm)) is False:
-        if wm.startswith("xinitrc") and len(wm) > 8:
-            wm = wm.replace("xinitrc.", "")
-            wm_sort.append(wm)
-            wm_sort.sort()
 
-wm_print = {}
-key = 1
-for wm in wm_sort:
-    wm_print.update({key:wm})
-    key += 1
+def make_list_of_xinitrcs_func():
+    for wm in os.listdir(os.path.join(xinitrc_dir[0])):
+        if os.path.isdir(os.path.join(xinitrc_dir[0] + "/" + wm)) is False:
+            if wm.startswith("xinitrc") and len(wm) > 8:
+                wm = wm.replace("xinitrc.", "")
+                wm_sort.append(wm)
+                wm_sort.sort()
+
+
+def make_xinitrc_dict_func():
+    key = 1
+    for wm in wm_sort:
+        wm_print.update({key:wm})
+        key += 1
+
+
+# Let's get started
+read_os_release_func()
+os_specific_xinit_loc_func()
+make_list_of_xinitrcs_func()
+make_xinitrc_dict_func()
 
 # get terminal window size to set layout
 getsize = shutil.get_terminal_size()
