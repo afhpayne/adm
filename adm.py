@@ -24,7 +24,7 @@ soft_name = "ADM"
 soft_tag  = "a simple display manager"
 
 # Version
-soft_vers = "1.2.2"
+soft_vers = "1.2.3"
 
 import datetime
 import getpass
@@ -46,7 +46,6 @@ wm_sort = []
 wm_print = []
 wm_choose = []
 xinitrc_dir = []
-os_release = []
 
 # Dictionaries
 wm_print = {}
@@ -54,40 +53,24 @@ wm_print = {}
 # Home location
 user_home = os.environ['HOME']
 
-# Normal linux setups (tested)
+# These Linux distros have been tested
 linuxes = ["slackware", "arch", "void", "debian"]
-
-
-def read_os_release_func():
-    osrelease_src = os.path.join("/etc/os-release")
-    try:
-        with open(osrelease_src) as osrelease:
-            osrelease_lines = osrelease.readlines()
-            os_release.append(osrelease_lines)
-    except(FileNotFoundError):
-        pass
 
 
 def os_specific_xinit_loc_func():
     check_platform = platform.version()
     hostname = socket.gethostname()
     tripwire = 0
-    if len(os_release) > 0:
+    if "linux" in check_platform.lower():
         for linux in linuxes:
-            if linux in (str(os_release).lower()):
-                print
+            if linux in (str(check_platform.lower())):
                 xinitrc_dir.append('/etc/X11/xinit')
                 tripwire = 1
-    
-    elif "nixos" in check_platform.lower():
-        xinitrc_dir.append(os.path.join(
-            user_home + '/Gitlab/nix_settings/' + hostname))
-        tripwire = 1
-    
+
     elif "freebsd" in check_platform.lower():
         xinitrc_dir.append('/usr/local/etc/X11/xinit')
         tripwire = 1
-    
+
     elif tripwire == 0:
         print(check_platform, "is not supported in this release.  Exiting.")
         exit(1)
@@ -110,7 +93,6 @@ def make_xinitrc_dict_func():
 
 
 # Let's get started
-read_os_release_func()
 os_specific_xinit_loc_func()
 make_list_of_xinitrcs_func()
 make_xinitrc_dict_func()
