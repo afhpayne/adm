@@ -2,7 +2,7 @@
 
 # Andrew Payne, info(*t)duckbrainsoftware(d*t)com
 # MIT License
-# Copyright (c) 2018-2020 Andrew Payne
+# Copyright (c) 2018-2021 Andrew Payne
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
@@ -24,7 +24,7 @@ soft_name = "ADM"
 soft_tag  = "a simple display manager"
 
 # Version
-soft_vers = "1.2.3"
+soft_vers = "1.2.4"
 
 import datetime
 import getpass
@@ -58,12 +58,14 @@ linuxes = ["slackware", "arch", "void", "debian"]
 
 
 def os_specific_xinit_loc_func():
-    check_platform = platform.version()
+    check_platform = platform.platform()
+    with open('/etc/os-release') as distro:
+        check_distro = distro.read()   
     hostname = socket.gethostname()
     tripwire = 0
     if "linux" in check_platform.lower():
         for linux in linuxes:
-            if linux in (str(check_platform.lower())):
+            if linux in (str(check_distro.lower())):
                 xinitrc_dir.append('/etc/X11/xinit')
                 tripwire = 1
 
